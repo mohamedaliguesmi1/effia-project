@@ -1,0 +1,49 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite de Test Login" preserve-order="true" verbose="2" time-out="300000" parallel="false" thread-count="2">
+
+    <!-- Déclaration des listeners -->
+
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+        <listener class-name="tests.CustomTestListener"/>
+        <listener class-name="tests.ExtentReportListener" />
+    </listeners>
+
+    <!-- Tests -->
+
+    <test name="TestLogin" time-out="300000" parallel="false" thread-count="2">
+        <classes>
+            <class name="tests.Login.EmailInvalide"/>
+            <class name="tests.Login.MotDePasseInvalide"/>
+            <class name="tests.Login.ChampsVides"/>
+            <class name="tests.Login.MotDePasseOublier"/>
+            <class name="tests.Login.Deconnexion"/>
+        </classes>
+    </test>
+
+    <test name="TestLogin1" time-out="300000" parallel="false" thread-count="2">
+        <classes>
+            <class name="tests.Login.AccesALaPageInscription"/>
+            <class name="tests.Login.MotDePasseOublier_EmailInexistant"/>
+            <class name="tests.Login.PlusieurConnexions"/>
+        </classes>
+    </test>
+
+    <test name="TestLogin2" time-out="300000" parallel="false" thread-count="2">
+        <classes>
+            <class name="tests.Login.LoginSuccess"/>
+            <class name="tests.Login.Login_Gmail"/>
+        </classes>
+    </test>
+
+    <test name="TestReservation" time-out="300000" parallel="false" thread-count="2">
+        <classes>
+            <class name="tests.ReserverUnePlace.AccesalaPagereservation"/>
+            <class name="tests.ReserverUnePlace.ReservationSansConfirmation"/>
+            <class name="tests.ReserverUnePlace.ReservationValide"/>
+            <class name="tests.ReserverUnePlace.ReservationavecAdressedeFacturation"/>
+            <class name="tests.ReserverUnePlace.ReserverSansConnexions"/>
+        </classes>
+    </test>
+
+</suite>

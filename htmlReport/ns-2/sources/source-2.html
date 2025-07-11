@@ -1,0 +1,645 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > InformationsSurCommandeManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: InformationsSurCommandeManager (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InformationsSurCommandeManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import config.BasePage;
+&nbsp;import org.openqa.selenium.*;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;public class InformationsSurCommandeManager extends BasePage {
+&nbsp;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    public InformationsSurCommandeManager() {
+<b class="nc">&nbsp;        super(); // Appelle le constructeur de BasePage</b>
+<b class="nc">&nbsp;        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20)); // Utilise le WebDriver partagé</b>
+<b class="nc">&nbsp;        disableAnimations();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void disableAnimations() {
+<b class="nc">&nbsp;        ((JavascriptExecutor) getDriver()).executeScript(</b>
+&nbsp;                &quot;document.body.style.transition = &#39;none&#39;; &quot; +
+&nbsp;                        &quot;Array.from(document.querySelectorAll(&#39;*&#39;)).forEach(el =&gt; el.style.transition = &#39;none&#39;);&quot;
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private void waitForPageLoad() {
+<b class="nc">&nbsp;        wait.until(webDriver -&gt; ((String) ((JavascriptExecutor) webDriver).executeScript(&quot;return document.readyState&quot;)).equals(&quot;complete&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private WebElement waitForElement(By locator) {
+&nbsp;        try {
+<b class="nc">&nbsp;            return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));</b>
+<b class="nc">&nbsp;        } catch (TimeoutException e) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;L&#39;élément &quot; + locator + &quot; n&#39;est pas visible après l&#39;attente.&quot;, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void selectFromCustomDropdown(By dropdownLocator, By itemLocator, String visibleText) {
+<b class="nc">&nbsp;        WebElement dropdown = waitForElement(dropdownLocator);</b>
+<b class="nc">&nbsp;        dropdown.click();</b>
+<b class="nc">&nbsp;        WebElement item = waitForElement(itemLocator);</b>
+<b class="nc">&nbsp;        if (item.getText().equals(visibleText)) {</b>
+<b class="nc">&nbsp;            item.click();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void selectRadioButton(By radioLocator) {
+<b class="nc">&nbsp;        WebElement radioButton = waitForElement(radioLocator);</b>
+<b class="nc">&nbsp;        if (!radioButton.isSelected()) {</b>
+<b class="nc">&nbsp;            radioButton.click();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void fillForm(String conducteur, String matricule) {
+<b class="nc">&nbsp;        waitForPageLoad();</b>
+<b class="nc">&nbsp;        By conducteurDropdown = By.xpath(&quot;//*[@id=\&quot;mui-component-select-driverID\&quot;]&quot;);</b>
+<b class="nc">&nbsp;        By conducteurOption = By.xpath(&quot;//*[@id=&#39;menu-driverID&#39;]/div[3]/ul/li[text()=&#39;&quot; + conducteur + &quot;&#39;]&quot;);</b>
+<b class="nc">&nbsp;        selectFromCustomDropdown(conducteurDropdown, conducteurOption, conducteur);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        By matriculeDropdown = By.xpath(&quot;//*[@id=\&quot;demo-customized-select-native\&quot;]&quot;);</b>
+<b class="nc">&nbsp;        By matriculeOption = By.xpath(&quot;//*[@id=&#39;menu-vehicleID&#39;]/div[3]/ul/li[text()=&#39;&quot; + matricule + &quot;&#39;]&quot;);</b>
+<b class="nc">&nbsp;        selectFromCustomDropdown(matriculeDropdown, matriculeOption, matricule);</b>
+&nbsp;
+<b class="nc">&nbsp;        driver.findElement(By.cssSelector(&quot;#root &gt; div &gt; div:nth-child(2) &gt; div &gt; div &gt; div &gt; div &gt; div.MuiBox-root.css-nw8yla &gt; div &gt; div.MuiBox-root.css-h7xgo7 &gt; div &gt; div:nth-child(1) &gt; span.MuiButtonBase-root.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.PrivateSwitchBase-root.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.css-gsgs5o-MuiButtonBase-root-MuiCheckbox-root &gt; input&quot;)).click();</b>
+<b class="nc">&nbsp;        driver.findElement(By.cssSelector(&quot;#root &gt; div &gt; div:nth-child(2) &gt; div &gt; div &gt; div &gt; div &gt; div.MuiBox-root.css-nw8yla &gt; div &gt; div.MuiBox-root.css-h7xgo7 &gt; div &gt; div:nth-child(2) &gt; span.MuiButtonBase-root.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.PrivateSwitchBase-root.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiCheckbox-sizeSmall.css-gsgs5o-MuiButtonBase-root-MuiCheckbox-root &gt; input&quot;)).click();</b>
+&nbsp;
+&nbsp;        // Cliquer sur le bouton de soumission
+&nbsp;
+<b class="nc">&nbsp;     wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[5]/button[2]&quot;))).click();</b>
+&nbsp;
+&nbsp;}
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;/*package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebDriver;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.Select;
+&nbsp;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;public class InformationsurcommandeManager {
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        driver.findElement(By.xpath(&quot; /html/body/div[1]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div&quot;)).click();
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        driver.findElement(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[3]/button&quot;)).click();
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        WebElement dropdownElement = driver.findElement(By.cssSelector(&quot;#mui-component-select-driverID&quot;));
+&nbsp;        dropdownElement.click();
+&nbsp;
+&nbsp;
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;
+&nbsp;        dropdown.selectByVisibleText(conducteur);
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        WebElement dropdownElement2 = driver.findElement(By.cssSelector(&quot;#demo-customized-select-native&quot;));
+&nbsp;        dropdownElement2.click();
+&nbsp;
+&nbsp;
+&nbsp;        Select dropdown1 = new Select(dropdownElement2);
+&nbsp;
+&nbsp;        dropdown.selectByVisibleText(matricule);
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        WebElement dropdownElement1 = driver.findElement(By.xpath(&quot;//*[@id=\&quot;demo-customized-select-native\&quot;]&quot;));
+&nbsp;        Select dropdown2 = new Select(dropdownElement1);
+&nbsp;
+&nbsp;        dropdown.selectByVisibleText(pays)
+&nbsp;
+&nbsp;        WebElement submitButton = driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;));
+&nbsp;        submitButton.click();
+&nbsp;        WebElement submitButton1 = driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;));
+&nbsp;        submitButton1.click();
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(3);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;:r18:\&quot;]&quot;)).click();
+&nbsp;}
+&nbsp;
+&nbsp;*/
+&nbsp;
+&nbsp;
+&nbsp;/*
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebDriver;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.Select;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;public class InformationsurcommandeManager {
+&nbsp;
+&nbsp;    private WebDriver driver;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    // Constructeur pour initialiser WebDriver et WebDriverWait
+&nbsp;    public InformationsurcommandeManager(WebDriver driver) {
+&nbsp;        this.driver = driver;
+&nbsp;        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;    }
+&nbsp;
+&nbsp;    // Méthode pour sélectionner un élément dans une liste déroulante par texte visible
+&nbsp;    public void selectByVisibleText(By locator, String visibleText) {
+&nbsp;        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+&nbsp;        dropdownElement.click();
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;        dropdown.selectByVisibleText(visibleText);
+&nbsp;    }
+&nbsp;
+&nbsp;    // Méthode pour sélectionner un élément dans une liste déroulante par valeur
+&nbsp;    public void selectByValue(By locator, String value) {
+&nbsp;        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+&nbsp;        dropdownElement.click();
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;        dropdown.selectByValue(value);
+&nbsp;    }
+&nbsp;
+&nbsp;    // Méthode principale pour sélectionner des informations de commande
+&nbsp;    public void selectInformation(String conducteur, String matricule) {
+&nbsp;        // Ouvrir les premières listes déroulantes et sélectionner des éléments
+&nbsp;        driver.findElement(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div&quot;)).click();
+&nbsp;
+&nbsp;        WebElement driverButton = wait.until(ExpectedConditions.elementToBeClickable(
+&nbsp;                By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[3]/button&quot;)));
+&nbsp;        driverButton.click();
+&nbsp;
+&nbsp;        // Sélection du conducteur
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#mui-component-select-driverID&quot;), conducteur);
+&nbsp;
+&nbsp;        // Sélection du matricule
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#demo-customized-select-native&quot;), matricule);
+&nbsp;
+&nbsp;        // Cliquer sur les boutons radio pour sélectionner les options de soumission
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;)).click();
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;)).click();
+&nbsp;
+&nbsp;        // Cliquer sur le bouton de soumission
+&nbsp;        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;//*[@id=\&quot;:r18:\&quot;]&quot;))).click();
+&nbsp;    }
+&nbsp;}
+&nbsp;*/
+&nbsp;
+&nbsp;/*
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebDriver;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.Select;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;public class InformationsurcommandeManager {
+&nbsp;
+&nbsp;    private WebDriver driver;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    // Constructor to initialize WebDriver and WebDriverWait
+&nbsp;    public InformationsurcommandeManager(WebDriver driver) {
+&nbsp;        this.driver = driver;
+&nbsp;        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to select an item in a dropdown by visible text
+&nbsp;    private void selectByVisibleText(By locator, String visibleText) {
+&nbsp;        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+&nbsp;        dropdownElement.click();
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;        dropdown.selectByVisibleText(visibleText);
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to select an item in a dropdown by value
+&nbsp;    private void selectByValue(By locator, String value) {
+&nbsp;        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+&nbsp;        dropdownElement.click();
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;        dropdown.selectByValue(value);
+&nbsp;    }
+&nbsp;
+&nbsp;    // Main method to select order information
+&nbsp;    public void selectInformation(String conducteur, String matricule) {
+&nbsp;        // Open dropdown menus and select elements
+&nbsp;
+&nbsp;        // Click on first dropdown element
+&nbsp;        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div&quot;))).click();
+&nbsp;
+&nbsp;        // Click on the driver button to expand list
+&nbsp;        WebElement driverButton = wait.until(ExpectedConditions.elementToBeClickable(
+&nbsp;                By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[3]/div[4]/div/div[3]/button&quot;)));
+&nbsp;        driverButton.click();
+&nbsp;
+&nbsp;        // Select &quot;conducteur&quot; in the dropdown
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#mui-component-select-driverID&quot;), conducteur);
+&nbsp;
+&nbsp;        // Select &quot;matricule&quot; in the second dropdown
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#demo-customized-select-native&quot;), matricule);
+&nbsp;
+&nbsp;        // Click on radio buttons to select options
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;)).click();
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;)).click();
+&nbsp;                // Cliquer sur le bouton de soumission
+&nbsp;                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;//*[@id=\&quot;:r18:\&quot;]&quot;))).click();
+&nbsp;    }
+&nbsp;}
+&nbsp;*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;/*package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebDriver;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.chrome.ChromeDriver;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.Select;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;public class InformationsurcommandeManager {
+&nbsp;
+&nbsp;    private WebDriver driver;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    // Constructor to initialize WebDriver with Selenium Manager
+&nbsp;    public InformationsurcommandeManager(WebDriver driver) {
+&nbsp;        this.driver = driver;
+&nbsp;        this.wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to select an item in a dropdown by visible text
+&nbsp;    public void selectByVisibleText(By locator, String visibleText) {
+&nbsp;        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(locator));
+&nbsp;        dropdownElement.click();
+&nbsp;        Select dropdown = new Select(dropdownElement);
+&nbsp;        dropdown.selectByVisibleText(visibleText);
+&nbsp;    }
+&nbsp;
+&nbsp;    // Main method to fill in the information fields
+&nbsp;    public void selectInformation(String conducteur, String matricule) {
+&nbsp;        // Select the first dropdown and choose &quot;conducteur&quot;
+&nbsp;        driver.findElement(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div&quot;)).click();
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#menu-driverID &gt; div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiMenu-paper.MuiPopover-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper &gt; ul&quot;), conducteur);
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(5);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        driver.findElement(By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[2]/div/div[2]/label&quot;)).click();
+&nbsp;        // Select the second dropdown and choose &quot;matricule&quot;
+&nbsp;        try {
+&nbsp;            TimeUnit.SECONDS.sleep(2);
+&nbsp;        } catch (InterruptedException e) {
+&nbsp;            throw new RuntimeException(e);
+&nbsp;        }
+&nbsp;        selectByVisibleText(By.cssSelector(&quot;#menu-vehicleID &gt; div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiMenu-paper.MuiPopover-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper &gt; ul &gt; li.MuiButtonBase-root.MuiMenuItem-root.MuiMenuItem-gutters.Mui-selected.MuiMenuItem-root.MuiMenuItem-gutters.Mui-selected.css-186kac4-MuiButtonBase-root-MuiMenuItem-root&quot;), matricule);
+&nbsp;
+&nbsp;        // Example of selecting radio buttons
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;)).click();
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;)).click();
+&nbsp;
+&nbsp;        // Submit
+&nbsp;        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;//*[@id=\&quot;:r18:\&quot;]&quot;))).click();
+&nbsp;    }
+&nbsp;}
+&nbsp;*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;/*
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebDriver;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.chrome.ChromeDriver;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;public class InformationsSurCommandeManager {
+&nbsp;
+&nbsp;    private WebDriver driver;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    // Constructor to initialize WebDriver and WebDriverWait
+&nbsp;    public InformationsSurCommandeManager() {
+&nbsp;        // Initialize WebDriver with Selenium Manager
+&nbsp;        driver = new ChromeDriver();
+&nbsp;        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to open the application
+&nbsp;   // public void openApplication(String url) {
+&nbsp;        //driver.get(url);
+&nbsp;        //driver.manage().window().maximize();
+&nbsp;    //}
+&nbsp;
+&nbsp;    // Method to select an item from a custom dropdown by visible text
+&nbsp;    private void selectFromCustomDropdown(By dropdownLocator, By itemLocator, String visibleText) {
+&nbsp;        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(dropdownLocator));
+&nbsp;        dropdown.click(); // Open the dropdown
+&nbsp;
+&nbsp;        WebElement item = wait.until(ExpectedConditions.visibilityOfElementLocated(itemLocator));
+&nbsp;        if (item.getText().equals(visibleText)) {
+&nbsp;            item.click(); // Select the desired item
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to select a radio button
+&nbsp;    private void selectRadioButton(By radioLocator) {
+&nbsp;        WebElement radioButton = wait.until(ExpectedConditions.elementToBeClickable(radioLocator));
+&nbsp;        if (!radioButton.isSelected()) {
+&nbsp;            radioButton.click();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Main method to interact with the form
+&nbsp;    public void fillForm(String conducteur, String matricule) {
+&nbsp;        // Open and select from the first dropdown (Conducteur)
+&nbsp;        By conducteurDropdown = By.xpath(&quot;#menu-driverID &gt; div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiMenu-paper.MuiPopover-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper &gt; ul&quot;);
+&nbsp;        By conducteurOption = By.xpath(&quot;//ul[@id=&#39;menu-driverID&#39;]//li[text()=&#39;&quot; + conducteur + &quot;&#39;]&quot;);
+&nbsp;        selectFromCustomDropdown(conducteurDropdown, conducteurOption, conducteur);
+&nbsp;
+&nbsp;        // Open and select from the second dropdown (Matricule)
+&nbsp;        By matriculeDropdown = By.xpath(&quot;#menu-vehicleID &gt; div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiMenu-paper.MuiPopover-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper &gt; ul&#39;]&quot;);
+&nbsp;        By matriculeOption = By.xpath(&quot;//ul[@id=&#39;menu-vehicleID&#39;]//li[text()=&#39;&quot; + matricule + &quot;&#39;]&quot;);
+&nbsp;        selectFromCustomDropdown(matriculeDropdown, matriculeOption, matricule);
+&nbsp;
+&nbsp;        // Select the first radio button
+&nbsp;        By firstRadioButton = By.xpath(&quot;//*[@id=\\\&quot;root\\\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;);
+&nbsp;        selectRadioButton(firstRadioButton);
+&nbsp;
+&nbsp;        // Select the second radio button
+&nbsp;        By secondRadioButton = By.xpath(&quot;//*[@id=\\\&quot;root\\\&quot;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;);
+&nbsp;        selectRadioButton(secondRadioButton);
+&nbsp;
+&nbsp;        // Click the submit button
+&nbsp;        By submitButton = By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[5]/button[2]&quot;);
+&nbsp;        wait.until(ExpectedConditions.elementToBeClickable(submitButton)).click();
+&nbsp;    }
+&nbsp;}
+&nbsp;*/
+&nbsp;
+&nbsp;
+&nbsp;/*
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import org.openqa.selenium.*;
+&nbsp;import org.openqa.selenium.chrome.ChromeDriver;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;public class InformationsSurCommandeManager {
+&nbsp;
+&nbsp;    private WebDriver driver;
+&nbsp;    private WebDriverWait wait;
+&nbsp;
+&nbsp;    public InformationsSurCommandeManager() {
+&nbsp;        driver = new ChromeDriver();
+&nbsp;        wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Temps d&#39;attente plus long
+&nbsp;        disableAnimations();
+&nbsp;    }
+&nbsp;
+&nbsp;    private void disableAnimations() {
+&nbsp;        ((JavascriptExecutor) driver).executeScript(
+&nbsp;                &quot;document.body.style.transition = &#39;none&#39;; &quot; +
+&nbsp;                        &quot;Array.from(document.querySelectorAll(&#39;*&#39;)).forEach(el =&gt; el.style.transition = &#39;none&#39;);&quot;
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    private void waitForPageLoad() {
+&nbsp;        wait.until(webDriver -&gt; ((String) ((JavascriptExecutor) webDriver).executeScript(&quot;return document.readyState&quot;)).equals(&quot;complete&quot;));
+&nbsp;    }
+&nbsp;
+&nbsp;    private void waitForVisibility(By locator) {
+&nbsp;        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+&nbsp;    }
+&nbsp;
+&nbsp;    private WebElement waitForElement(By locator) {
+&nbsp;        try {
+&nbsp;            return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+&nbsp;        } catch (TimeoutException e) {
+&nbsp;            throw new RuntimeException(&quot;L&#39;élément &quot; + locator + &quot; n&#39;est pas visible après l&#39;attente.&quot;, e);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void selectFromCustomDropdown(By dropdownLocator, By itemLocator, String visibleText) {
+&nbsp;        WebElement dropdown = waitForElement(dropdownLocator);
+&nbsp;        dropdown.click();
+&nbsp;        WebElement item = waitForElement(itemLocator);
+&nbsp;        if (item.getText().equals(visibleText)) {
+&nbsp;            item.click();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void selectRadioButton(By radioLocator) {
+&nbsp;        WebElement radioButton = waitForElement(radioLocator);
+&nbsp;        if (!radioButton.isSelected()) {
+&nbsp;            radioButton.click();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void fillForm(String conducteur, String matricule) {
+&nbsp;        waitForPageLoad();
+&nbsp;
+&nbsp;        By conducteurDropdown = By.xpath(&quot;//ul[@id=&#39;menu-driverID&#39;]&quot;);
+&nbsp;        By conducteurOption = By.xpath(&quot;//ul[@id=&#39;menu-driverID&#39;]//li[text()=&#39;&quot; + conducteur + &quot;&#39;]&quot;);
+&nbsp;        selectFromCustomDropdown(conducteurDropdown, conducteurOption, conducteur);
+&nbsp;
+&nbsp;        By matriculeDropdown = By.xpath(&quot;//ul[@id=&#39;menu-vehicleID&#39;]&quot;);
+&nbsp;        By matriculeOption = By.xpath(&quot;//ul[@id=&#39;menu-vehicleID&#39;]//li[text()=&#39;&quot; + matricule + &quot;&#39;]&quot;);
+&nbsp;        selectFromCustomDropdown(matriculeDropdown, matriculeOption, matricule);
+&nbsp;
+&nbsp;        By firstRadioButton = By.xpath(&quot;//*[@id=&#39;root&#39;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[1]/span/input&quot;);
+&nbsp;        selectRadioButton(firstRadioButton);
+&nbsp;
+&nbsp;        By secondRadioButton = By.xpath(&quot;//*[@id=&#39;root&#39;]/div/div[2]/div/div/div/div[2]/div[2]/div[4]/div/label[2]/span/input&quot;);
+&nbsp;        selectRadioButton(secondRadioButton);
+&nbsp;
+&nbsp;        By submitButton = By.xpath(&quot;//button[text()=&#39;Submit&#39;]&quot;);
+&nbsp;        WebElement button = waitForElement(submitButton);
+&nbsp;        button.click();
+&nbsp;    }
+&nbsp;}
+&nbsp;*/
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;// By conducteurDropdown = By.xpath(&quot;//div[contains(@class, &#39;MuiMenu-paper&#39;)]//ul&quot;);   /html[1]/body[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]
+&nbsp;//By conducteurOption = By.xpath(&quot;//li[contains(@class, &#39;MuiMenuItem-root&#39;) and text()=&#39;med ali 1&#39;]&quot;);
+&nbsp;// selectFromCustomDropdown(conducteurDropdown, conducteurOption, &quot;med ali 1&quot;);
+&nbsp;        /*
+&nbsp;        By conducteurDropdown = By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div&quot;);
+&nbsp;
+&nbsp;        By conducteurOption = By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div//li[text()=&#39;&quot; + conducteur + &quot;&#39;]&quot;);
+&nbsp;        selectFromCustomDropdown(conducteurDropdown, conducteurOption, conducteur);
+&nbsp;*/
+&nbsp;
+&nbsp;// By conducteurDropdown = By.xpath(&quot;/html/body/div[1]/div/div[2]/div/div/div/div/div[3]/div/div[2]/div/div[1]/div/div&quot;);
+&nbsp;//By conducteurOption = By.xpath(&quot;//ul[@id=&#39;menu-driverID&#39;]//li[text()=&#39;&quot; + conducteur + &quot;&#39;]&quot;);
+&nbsp;// selectFromCustomDropdown(conducteurDropdown, conducteurOption, conducteur);
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-03-10 13:11</div>
+</div>
+</body>
+</html>

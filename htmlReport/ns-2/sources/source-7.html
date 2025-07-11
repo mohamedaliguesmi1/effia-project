@@ -1,0 +1,269 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ParkingchoixManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.example</a>
+</div>
+
+<h1>Coverage Summary for Class: ParkingchoixManager (org.example)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ParkingchoixManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*package org.example;
+&nbsp;
+&nbsp;import config.BasePage;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;public class ParkingchoixManager extends BasePage {
+&nbsp;    public void selectParkingAndSearch(String visibleText) {
+&nbsp;        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;
+&nbsp;        WebElement dropdownInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(&quot;free-solo-demo&quot;)));
+&nbsp;
+&nbsp;        dropdownInput.sendKeys(visibleText);
+&nbsp;
+&nbsp;
+&nbsp;        // Cliquer sur le bouton de recherche ou autre élément
+&nbsp;        driver.findElement(By.xpath(&quot;//*[@id=\&quot;simple-tabpanel-0\&quot;]/div/div[2]&quot;)).click();
+&nbsp;
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;/*
+&nbsp;
+&nbsp;
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import config.BasePage;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.List;
+&nbsp;import java.util.concurrent.TimeUnit;
+&nbsp;
+&nbsp;public class ParkingchoixManager extends BasePage {
+&nbsp;    /*
+&nbsp;        public void selectParkingAndSearch(String visibleText) {
+&nbsp;            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;
+&nbsp;            // Attendre que les éléments de la liste des parkings soient visibles
+&nbsp;            List&lt;WebElement&gt; parkingElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+&nbsp;                    By.cssSelector(&quot;.MuiTypography-root.MuiTypography-body1.css-c84f31-MuiTypography-root&quot;)));
+&nbsp;            try {
+&nbsp;                TimeUnit.SECONDS.sleep(3);
+&nbsp;            } catch (InterruptedException e) {
+&nbsp;                throw new RuntimeException(e);
+&nbsp;            }
+&nbsp;
+&nbsp;            boolean parkingFound = false;
+&nbsp;
+&nbsp;            // Parcourir les éléments et sélectionner celui qui correspond au texte visible
+&nbsp;            for (WebElement parkingElement : parkingElements) {
+&nbsp;                if (parkingElement.getText().equalsIgnoreCase(visibleText)) {
+&nbsp;                    parkingElement.click(); // Cliquer sur l&#39;élément correspondant
+&nbsp;                    parkingFound = true;
+&nbsp;                   // break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            if (!parkingFound) {
+&nbsp;                throw new RuntimeException(&quot;Parking avec le texte visible \&quot;&quot; + visibleText + &quot;\&quot; introuvable !&quot;);
+&nbsp;            }
+&nbsp;
+&nbsp;            // Cliquer sur le bouton de recherche ou continuer avec le reste de la logique
+&nbsp;           // WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(&quot;//*[@id=\&quot;simple-tabpanel-0\&quot;]/div/div[2]&quot;)));
+&nbsp;            //searchButton.click();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public void selectParkingAndSearch(String visibleText) {
+&nbsp;        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+&nbsp;
+&nbsp;        // Attendre que les éléments de la liste des parkings soient visibles
+&nbsp;        List&lt;WebElement&gt; parkingElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(&quot;.MuiTypography-root.MuiTypography-body1.css-c84f31-MuiTypography-root&quot;)));
+&nbsp;        //System.out.println(&quot;Liste des parkings récupérée.&quot;);
+&nbsp;
+&nbsp;        //boolean parkingFound = false;
+&nbsp;
+&nbsp;        // Parcourir les éléments et sélectionner celui qui correspond au texte visible
+&nbsp;        for (WebElement parkingElement : parkingElements) {
+&nbsp;           // System.out.println(&quot;Vérification du parking : &quot; + parkingElement.getText());
+&nbsp;            if (parkingElement.getText().equalsIgnoreCase(visibleText)) {
+&nbsp;               // System.out.println(&quot;Parking trouvé : &quot; + visibleText);
+&nbsp;                parkingElement.click(); // Cliquer sur l&#39;élément correspondant
+&nbsp;               // parkingFound = true;
+&nbsp;
+&nbsp;                // Attendre la mise à jour après le clic
+&nbsp;               // System.out.println(&quot;Attente après le clic sur le parking...&quot;);
+&nbsp;              //  wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(&quot;//*[@id=\&quot;root\&quot;]/div/div[2]/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[2]&quot;)));
+&nbsp;               // break;
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;       // if (!parkingFound) {
+&nbsp;          //  System.out.println(&quot;Parking non trouvé !&quot;);
+&nbsp;            //throw new RuntimeException(&quot;Parking avec le texte visible \&quot;&quot; + visibleText + &quot;\&quot; introuvable !&quot;);
+&nbsp;        }
+&nbsp;       // System.out.println(&quot;Fin de la méthode selectParkingAndSearch&quot;);
+&nbsp;    }
+&nbsp;//}
+&nbsp;
+&nbsp; */
+&nbsp;
+&nbsp;package org.example;
+&nbsp;
+&nbsp;import config.BasePage;
+&nbsp;import org.openqa.selenium.By;
+&nbsp;import org.openqa.selenium.WebElement;
+&nbsp;import org.openqa.selenium.support.ui.ExpectedConditions;
+&nbsp;import org.openqa.selenium.support.ui.WebDriverWait;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.List;
+&nbsp;
+<b class="nc">&nbsp;public class ParkingchoixManager extends BasePage {</b>
+&nbsp;
+&nbsp;    public void selectParkingAndSearch(String visibleText) {
+<b class="nc">&nbsp;        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));</b>
+&nbsp;
+&nbsp;        // Attendre que les éléments de la liste des parkings soient visibles
+<b class="nc">&nbsp;        List&lt;WebElement&gt; parkingElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(</b>
+<b class="nc">&nbsp;                By.cssSelector(&quot;.MuiTypography-root.MuiTypography-body1.css-c84f31-MuiTypography-root&quot;)));</b>
+&nbsp;
+<b class="nc">&nbsp;        boolean parkingFound = false;</b>
+&nbsp;
+&nbsp;        // Parcourir les éléments et sélectionner celui qui correspond au texte visible
+<b class="nc">&nbsp;        for (WebElement parkingElement : parkingElements) {</b>
+<b class="nc">&nbsp;            if (parkingElement.getText().equalsIgnoreCase(visibleText)) {</b>
+<b class="nc">&nbsp;                parkingElement.click(); // Cliquer sur l&#39;élément correspondant</b>
+<b class="nc">&nbsp;                parkingFound = true;</b>
+&nbsp;
+&nbsp;                // Attendre que l&#39;action post-clic soit visible ou que la page soit mise à jour
+<b class="nc">&nbsp;                wait.until(ExpectedConditions.stalenessOf(parkingElement));</b>
+&nbsp;                break; // Arrêter la boucle après avoir trouvé le parking
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Si le parking n&#39;est pas trouvé, lever une exception
+<b class="nc">&nbsp;        if (!parkingFound) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;Parking avec le texte visible \&quot;&quot; + visibleText + &quot;\&quot; introuvable !&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-03-10 13:11</div>
+</div>
+</body>
+</html>
